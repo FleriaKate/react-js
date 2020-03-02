@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from "react";
+import  pet,{ANIMALS } from "@frontendmasters/pet";
+import dropDown from "./dropdown";
 
-const SearchParams = () => {
-//replace location
-//location represents current state
-//updateLocation -> function to update state
-const [location,updateLocation ] = useState("Seattle,WA")
+const searchParams = () => {
+  //location
+  const [location, updateLocation] = useState("Seattle,WA");
+  const [breeds, updateBreeds] = useState([]);
+  const [animal, AnimalDropdown] = dropDown("Animal", "dog", ANIMALS);
+  const [breed, BreedDropdown,updateBreed] = dropDown("Breed", "", breeds);
 
-    return (
-        <div className= "search-params">
-            <form>
-                <label htmlFOr="Location">
-                    location
-                    <input 
-                    id="location"
-                     value={location}
-                    placeholder="Location"
-                    onChange={(e) => updateLocation
-                    (e.target.value)} 
-                    />
-                </label>
-                <button>Submit</button>
-            </form>
-        </div>
-    )
-}
+  useEffect(()=> {
+      updateBreeds([]);
+      updateBreed('');
+      pet.breeds(animal).then(({ breeds }) => {
+          const breedItems = breeds.map(({ name }) => name);
+          updateBreeds(breedItems)
+      },console.error)
+    },[animal,updateBreed,updateBreeds])
+      
 
-export default SearchParams;
+  return (
+    <div className="search-params">
+      <form>
+        <label htmlFor="location">
+          Location
+          <input
+            id="location"
+            value={location}
+            placeholder="Location"
+            onChange={e => updateLocation(e.target.value)}
+          />
+        </label>
+        <AnimalDropdown />
+        <BreedDropdown />
+        <button>Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export default searchParams;
