@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 const SearchParams = () => {
 //replace location
+//location represents current state
+//updateLocation -> function to update state
 const [location,updateLocation ] = useState("Seattle,WA")
 
     return (
