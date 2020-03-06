@@ -7,7 +7,12 @@
   background-image: url('./images/image.png');
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}.search-params {
+}
+.adopt_pets {
+  text-decoration: none;
+}
+
+.search-params {
   width: 1100px;
   margin: 0 auto;
 }

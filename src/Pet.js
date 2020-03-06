@@ -1,4 +1,5 @@
 import React from "react";
+import {Link } from "@reach/router";
 
 const Pet = props => {
   const { name, animal, breed, media, location, id } = props;
